@@ -50,8 +50,8 @@ var  problem1 = [][][][]int{
 }
 
 func main() {
-	fmt.Println("--------- CREATING A SINGLE DIMENSIONAL SUDOKU SOLVER --------")
+	fmt.Println("--------- CREATING A MULTI DIMENSIONAL SUDOKU SOLVER --------")
 	
-	fmt.Println(sudoku.Solution1())
+	fmt.Println(sudoku.Solution())
 
 }
