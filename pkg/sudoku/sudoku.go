@@ -1,12 +1,13 @@
 package sudoku
 
 import (
-	"sort"
+	//"sort"
+	"fmt"
 )
 
 var problem = [][]int{{0, 2, 4}, {6, 0, 8}, {0, 0, 0}}		//Global
 
-var list = []int{1, 2, 3, 4, 5, 6, 7, 8, 9}		//Global
+var list = []int{1, 2, 2, 4, 5, 6, 7, 8, 9}		//Global
 
 type store struct {			//Global
 	out int
@@ -96,7 +97,7 @@ func Getresult(a against) result {
 		list = b
 	}
 	var check string = "Unchecked"
-	for _, val := range list{
+	for ind, val := range list{
 		for x, val1 := range a.oppo {
 			if val != val1 {
 				if x + 1 == len(a.oppo) {
@@ -104,11 +105,12 @@ func Getresult(a against) result {
 					r.outside = a.posi[0]
 					r.inside = a.posi[1]
 
-					lists := sort.IntSlice(list[0:])
-					sort.Sort(lists)
-					pos := sort.SearchInts(list, val)
+					r.val_posi = ind
 
-					r.val_posi = pos
+					fmt.Println("---")
+					fmt.Println(ind)
+
+					fmt.Println(list[ind])
 
 					check = "Checked"
 
@@ -143,7 +145,9 @@ func Solution() [][]int {
 	a := Problemvalues(missing)
 	r = Getresult(a)
 
+	//Verify that the value picked is not 0
 	if r.val != 0 {
+		//Replacing the correct value in the problem
 		problem[r.outside][r.inside] = r.val
 	}
 
@@ -152,3 +156,12 @@ func Solution() [][]int {
 	}
 	return problem
 }
+
+
+/*
+** Get the position of value in a list
+
+	lists := sort.IntSlice(list[0:])
+	sort.Sort(lists)
+	pos := sort.SearchInts(list, val)
+*/

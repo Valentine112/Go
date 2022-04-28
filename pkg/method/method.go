@@ -1,6 +1,15 @@
 package method
 
-//import "fmt"
+import (
+	"sort"
+	"fmt"
+)
+
+//far == vertical
+//out == horizontal
+//mid == box
+//in == vertical 3 in a box
+
 //Store
 type Store struct {	
 	far int
@@ -15,11 +24,11 @@ type Against struct {			//Local
 	oppo []int	
 }
 
+//Value
 type Value struct {
 	val int
 	val_posi int
-	outside int
-	inside int
+	posi []int
 }
 
 var a Against
@@ -80,19 +89,54 @@ func Box(problem [][][][]int, a Against) Against {
 	for _, val := range problem[a.posi[0]][a.posi[1]] {
 		a.oppo = append(a.oppo, val[0], val[1], val[2])
 	}
-
+	fmt.Println(a)
 	return a
 }
 
 //Result
-func Result(a Against) Value {
+func Result(a Against, values []int) Value {
+
+	var check string = "Unchecked"
+	for _, val := range values{
+		for x, val1 := range a.oppo {
+
+			//Check if the value is not among the opposite
+			if val != val1 {
+				
+				//Check if it has checked every oppo value in the list
+				if x + 1 == len(a.oppo) {
+
+					//The correct val
+					v.val = val
+					//The value position from the top - bottom
+					v.posi = append(v.posi, a.posi...)
+
+					lists := sort.IntSlice(values[0:])
+					sort.Sort(lists)
+					pos := sort.SearchInts(values, val)
+
+					v.val_posi = pos
+
+					check = "Checked"
+
+					break
+				}else{
+					continue
+				}
+			}else{
+				break
+			}
+		}
+		if check == "Checked" {
+			break
+		}
+	}
 
 	return v
 }
 
 //Delete
-/*
-func Delete(ind int) []int {
+func Delete(ind int, list []int) []int {
 	var b []int
 	if ind == 0 {
 		b = append(b, list[ind + 1:]...)
@@ -104,4 +148,4 @@ func Delete(ind int) []int {
 	}
 
 	return b
-}*/
+}
